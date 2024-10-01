@@ -9,6 +9,8 @@ public class Empleado {
 	
 	public float CalculoNominaBruta(TipoEmpleado tipo, float ventasMes, float horasExtra) {
 		
+		//this.tipoFinalEmpleado = tipo;
+		
 		//Determinar salario base
 		if(tipo== TipoEmpleado.Vendedor) {
 			salarioBase = 2000;
