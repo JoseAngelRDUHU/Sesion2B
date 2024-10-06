@@ -35,22 +35,134 @@ class EmpleadoTest {
 		System.out.println("After Each");
 	}
 	
-	//CalculoNomina Bruta hacer 7 u 8
-	
 	@Test
 	void testCalculoNominaBrutaTipoEmpleado() {
-		String t1="Vendedor";
-		String t2="Encargado";
+		//No se bien como comprobar este, me parece extraño tener que comprobarlo.
 		
-		
-		emp.CalculoNominaBruta(null, 0, 0);
-		
-		assertEquals(t1, null);
-	}
+		enum expectedTipos{Encargado, Vendedor}
 
+		TipoEmpleado encarg = TipoEmpleado.Encargado;
+		TipoEmpleado vend = TipoEmpleado.Vendedor;
+		
+		assertEquals(encarg.name(), expectedTipos.Encargado.name());
+		assertEquals(vend.name(), expectedTipos.Vendedor.name());
+	}
+	
 	@Test
-	void testCalculoNominaNeta() {
-		fail("Not yet implemented");
+	void testCalculoNominaBrutaMas_SalarioBaseVendedor() {
+		
+		float expected = 2000;
+		float actual = emp.CalculoNominaBruta(TipoEmpleado.Vendedor, 0, 0);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaBrutaMas_SalarioBaseEncargado() {
+		
+		float expected = 2500;
+		float actual = emp.CalculoNominaBruta(TipoEmpleado.Encargado, 0, 0);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaBrutaMas_SalarioVendedorVentasMas1500() {
+		
+		float expected = 2200;
+		float actual = emp.CalculoNominaBruta(TipoEmpleado.Vendedor, 1600, 0);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaBrutaMas_SalarioVendedorVentasMas1000() {
+		
+		float expected = 2100;
+		float actual = emp.CalculoNominaBruta(TipoEmpleado.Vendedor, 1200, 0);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaBrutaMas_SalarioVendedorVentasMenos1000() {
+		
+		float expected = 2000;
+		float actual = emp.CalculoNominaBruta(TipoEmpleado.Vendedor, 600, 0);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaBrutaMas_SalarioEncargadoVentasMas1500() {
+		
+		float expected = 2700;
+		float actual = emp.CalculoNominaBruta(TipoEmpleado.Encargado, 1600, 0);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaBrutaMas_SalarioEncargadoVentasMas1000() {
+		
+		float expected = 2600;
+		float actual = emp.CalculoNominaBruta(TipoEmpleado.Encargado, 1200, 0);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaBrutaMas_SalarioEncargadoVentasMenos1000() {
+		
+		float expected = 2500;
+		float actual = emp.CalculoNominaBruta(TipoEmpleado.Encargado, 600, 0);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaBrutaMas_SalarioVendedor2HorasExtras() {
+		
+		float expected = 2060;
+		float actual = emp.CalculoNominaBruta(TipoEmpleado.Vendedor, 0, 2);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaBrutaMas_SalarioEncargado2HorasExtras() {
+		
+		float expected = 2560;
+		float actual = emp.CalculoNominaBruta(TipoEmpleado.Encargado, 0, 2);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaNeta_RetencionMas2500() {
+		
+		float expected = 2600*(1-0.18f);
+		float actual = emp.calculoNominaNeta(2600);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaNeta_RetencionMas2100() {
+		
+		float expected = 2300*(1-0.15f);
+		float actual = emp.calculoNominaNeta(2300);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testCalculoNominaNeta_RetencionMenos2100() {
+		
+		float expected = 1700;
+		float actual = emp.calculoNominaNeta(1700);
+		
+		assertEquals(expected, actual);
 	}
 
 }
